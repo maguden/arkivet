@@ -28,10 +28,13 @@ export default async function Page({ params }: Props) {
     notFound();
   }
 
+  const image = page.image && typeof page.image === "object" ? page.image : null;
+
   return (
     <div>
       <h1>{page.title}</h1>
       {page.content && <RichText data={page.content} />}
+      {image?.url && (<img src={image.url} alt={image.alt || ""} style={{ maxWidth: "100%", height: "auto" }} />)}
     </div>
   );
 }
