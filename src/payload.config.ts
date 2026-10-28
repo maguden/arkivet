@@ -10,6 +10,7 @@ import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
 import { Navigation } from './Globals/Navigation';
+import { Homepage } from './Globals/Homepage';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,7 +25,7 @@ const dirname = path.dirname(filename);
 const collections: CollectionConfig[] = [
   Users,
   Media,
-  Pages
+  Pages,
 ];
 
 /**
@@ -50,7 +51,7 @@ export default buildConfig({
   },
   blocks,
   collections,
-  globals: [Navigation],
+  globals: [Navigation, Homepage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -91,9 +91,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     navigation: Navigation;
+    homepage: Homepage;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -385,6 +387,26 @@ export interface Navigation {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: number;
+  title?: string | null;
+  intro?: string | null;
+  image?: (number | null) | Media;
+  categories?:
+    | {
+        title: string;
+        image: number | Media;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
 export interface NavigationSelect<T extends boolean = true> {
@@ -393,6 +415,26 @@ export interface NavigationSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        href?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  image?: T;
+  categories?:
+    | T
+    | {
+        title?: T;
+        image?: T;
         href?: T;
         id?: T;
       };

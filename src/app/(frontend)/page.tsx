@@ -1,38 +1,59 @@
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import Link from "next/link";
+
 export default async function Home() {
-  const response = await fetch(
-        "https://foto.munchmuseet.no/fotoweb/archives/5013-Malerier/",
-        {
-          headers: {
-            accept: "application/vnd.fotoware.assetlist+json",
-          },
-        }
-  );
+  const payload = await getPayload({ config });
 
-  if (!response.ok) {
-    return <p>Kunne ikke hente kunstverk</p>;
-  }
+  const homepage = await payload.findGlobal({
+    slug: "homepage",
+    depth: 1,
+  });
 
-  const result = await response.json();
-  const artwork = result.data[0];
+  const image = homepage.image && typeof homepage.image === "object" ? homepage.image : null;
 
   return (
-    <main>
-      <h1>arkivet.</h1>
-      <p>Utforsk MUNCH sitt arkiv</p>
-      <article>
-        <img
-  src={`https://foto.munchmuseet.no${artwork.previews[0].href}`}
-  alt={artwork.metadata["5"].value}
-  width={artwork.previews[0].width}
-  height={artwork.previews[0].height}
-  style={{ maxWidth: "100%", height: "auto" }}
-/>
+    <main className="homepage">
+     <section className="hero" aria-label="forsidebilde">
+       {image?.url && (
+         <img
+         className="hero-image"
+         src={image.url}
+         alt={image.alt || ""}
+         width={image.width ?? undefined}
+         height={image.height ?? undefined}
+         />
+       )}
+     </section>
 
-        <h2>{artwork.metadata["5"].value}</h2>
-        <p>{artwork.metadata["110"].value}, {artwork.metadata["203"].value}</p>
-        <p>{artwork.metadata["200"].value}</p>
-        <p>{artwork.metadata["3"].value}</p>
-      </article>
+     <section className="homepage-intro">
+       <h1>{homepage.title}</h1>
+       <h2>{homepage.intro}</h2>
+     </section>
+
+     <section className="category-grid" aria-label="Kunstkategorier">
+      {homepage.categories?.map((category) => {
+        const categoryImage = 
+         category.image && typeof category.image === "object" ? category.image : null;
+
+         return (
+          <Link 
+             key={category.id}
+             href={category.href}
+             className="category-card"
+          >
+            {categoryImage?.url && (
+              <img
+                 src={categoryImage.url}
+                 alt={categoryImage.alt || ""}
+              />
+            )}
+
+            <h2>{category.title}</h2>
+          </Link>
+         );
+     })}
+     </section>
     </main>
   );
 }

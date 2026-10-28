@@ -21,11 +21,21 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="no">
       <body>
         
-        <header>
-          <Link href="/">{navigation.siteName}</Link>
+        <header className="site-header">
+         <nav className="header-left" aria-label="Hovedmeny">
+          {navigation.links?.slice(0, 2).map((link) => (
+            <Link key={link.id} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
+         </nav>
 
-          <nav aria-label="Hovedmeny">
-            {navigation.links?.map((link) => (
+          <Link className="header-logo" href="/">
+            {navigation.siteName}
+          </Link>
+
+          <nav className="header-right" aria-label="Om nettsiden">
+            {navigation.links?.slice(2).map((link) => (
               <Link key={link.id} href={link.href}>
                 {link.label}
               </Link>
