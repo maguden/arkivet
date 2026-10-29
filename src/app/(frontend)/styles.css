@@ -59,28 +59,19 @@ h3 {
   left: 0;
   width: 100%;
   z-index: 100;
-
   display: grid; 
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
   gap: 24px;
-  padding: 24px 40px;
-
-  background-color: transparent;
-  color: white;
-
+  padding: 16px 40px;
+  background-color: white;
+  color: black;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-
-  transition: background-color 200ms ease, color 200ms;
 }
 
-.site-header:hover,
-.site-header:focus-within {
-  background-color: white;
-  color: black;
-}
+
 
 .header-logo {
   font-size: 50px;
@@ -164,7 +155,9 @@ main.homepage {
 .category-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 20px;
+  padding: 20px;
+
 }
 
 .category-card {
@@ -207,3 +200,180 @@ main.homepage {
   outline: 4px solid white;
   outline-offset: -8px;
 }
+
+/* ---- DATABASE ---- */
+
+/* Filter */
+.database-search {
+  position: fixed;
+  top: 160px;
+  left: 60px;
+  width: 300px;
+  max-height: calc(100dvh - 180px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.database-search fieldset {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.database-search label,
+.database-search legend {
+  display: block;
+  font-size: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+}
+
+.database-search legend {
+  margin-bottom: 4px;
+}
+
+.database-search label {
+  margin-bottom: 4px;
+}
+
+/* Knapper */
+.category-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.category-buttons button {
+  width: 100%;
+  padding: 10px 4px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  border: 1px solid black;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  cursor: pointer;
+
+
+}
+
+.category-buttons button[aria-pressed="true"] {
+  background-color: black;
+  color: white;
+}
+
+/* Søkefelt */
+.database-search input:not([type="hidden"]) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.database-search button[type="submit"] {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.database-search > a {
+  align-self: center;
+  color: black;
+  font-size: 16px;
+}
+
+.date-range {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+
+
+/* Søkeresultater */
+
+main.database-page {
+  inline-size: 100%;
+  margin-top: 40px;
+  padding: 120px 60px 40px 40px;
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 40px;
+  min-height: 100svh;
+}
+
+.database-page > * + * {
+  margin-block-start: 0;
+}
+
+.artwork-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px 24px;
+}
+
+.artwork-card img {
+  display: block;
+  width: 90%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.artwork-card h2 {
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.artwork-card p {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.artwork-card a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.database-results nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.empty-results {
+  padding-right: 400px;
+  text-align: center;
+}
+
+.empty-results h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.empty-results p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+
+/* ---- ARTWORK DETAIL ---- */
+
+main.artwork-detail {
+  padding-top: 120px;
+}
+

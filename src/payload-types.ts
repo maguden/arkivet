@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     pages: Page;
+    artworks: Artwork;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +81,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    artworks: ArtworksSelect<false> | ArtworksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -199,6 +201,30 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks".
+ */
+export interface Artwork {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  artist?: string | null;
+  date?: number | null;
+  category: 'malerier' | 'grafikk' | 'tegninger' | 'fotografi';
+  image: number | Media;
+  description?: string | null;
+  credit?: string | null;
+  license?: string | null;
+  licenseUrl?: string | null;
+  sourceUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -232,6 +258,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'artworks';
+        value: number | Artwork;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -325,6 +355,26 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   content?: T;
   image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "artworks_select".
+ */
+export interface ArtworksSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  artist?: T;
+  date?: T;
+  category?: T;
+  image?: T;
+  description?: T;
+  credit?: T;
+  license?: T;
+  licenseUrl?: T;
+  sourceUrl?: T;
   updatedAt?: T;
   createdAt?: T;
 }

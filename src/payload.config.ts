@@ -11,6 +11,7 @@ import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
 import { Navigation } from './Globals/Navigation';
 import { Homepage } from './Globals/Homepage';
+import { Artworks } from './collections/Artworks';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -26,6 +27,7 @@ const collections: CollectionConfig[] = [
   Users,
   Media,
   Pages,
+  Artworks,
 ];
 
 /**
