@@ -32,9 +32,38 @@ const image = artwork.image && typeof artwork.image === "object" ? artwork.image
 
 return (
     <main className="artwork-detail">
-        <h1>{artwork.title}</h1>
+      <div className="artwork-detail-info">
+         <h1>{artwork.title}</h1>
 
-        {image?.url && (
+         <div className="artwork-detail-meta">
+             <p>{artwork.artist}</p>
+             <p>Datering: {artwork.date}</p>
+         </div>
+
+         <div className="artwork-detail-credits">
+             {artwork.credit && <p>Foto: {artwork.credit}</p>}
+
+             {artwork.license && (
+                 <p>
+                   Lisens: {" "}
+                   {artwork.licenseUrl ? (
+                     <a href={artwork.licenseUrl}>{artwork.license}</a>
+                 ) : (
+                     artwork.license
+                 )}
+                 </p>
+             )}
+
+             {artwork.sourceUrl && (
+                 <p>
+                   <a href={artwork.sourceUrl}>Se verket hos MUNCH →</a>
+                 </p>
+             )}
+         </div>
+      </div>
+
+      <div className="artwork-detail-image">
+          {image?.url && (
             <img 
             src={image.url}
             alt={image.alt || ""}
@@ -43,28 +72,7 @@ return (
             style={{ maxWidth: "100%", height: "auto" }}
             />
         )}
-
-        <p>{artwork.artist}</p>
-        <p>{artwork.date}</p>
-
-        {artwork.credit && <p>{artwork.credit}</p>}
-
-        {artwork.license && (
-            <p>
-                Lisens: {" "}
-                {artwork.licenseUrl ? (
-                    <a href={artwork.licenseUrl}>{artwork.license}</a>
-                ) : (
-                    artwork.license
-                )}
-            </p>
-        )}
-
-        {artwork.sourceUrl && (
-            <p>
-                <a href={artwork.sourceUrl}>Se verket hos MUNCH</a>
-            </p>
-        )}
+      </div>
     </main>
 
 )
