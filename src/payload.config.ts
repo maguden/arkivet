@@ -63,7 +63,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    prodMigrations: migrations
+    prodMigrations: 
+       process.env.SKIP_MIGRATIONS === "true"? undefined: migrations,
   }),
   sharp,
   plugins: [],

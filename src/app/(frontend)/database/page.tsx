@@ -58,30 +58,9 @@ export default async function DatabasePage({ searchParams }: Props) {
                 )}
 
                 <div className="artwork-grid">
-                    {result.data.map((artwork) => {
-                        const title = getMunchValue(artwork, "5");
-                        const preview = artwork.previews[0];
-
-                        const imageUrl = preview? new URL(preview.href, "https://foto.munchmuseet.no").href: null;
-
-                        return (
-                            <article key={artwork.href} className="artwork-card">
-                                <Link href={`/database/${encodeURIComponent(artwork.href)}`}>
-                                    {imageUrl && (
-                                        <img
-                                        src={imageUrl}
-                                        alt={title}
-                                        width={preview?.width}
-                                        height={preview?.height}
-                                        />
-                                    )}
-
-                                    <h2>{title}</h2>
-                                </Link>
-                                <p>{getMunchValue(artwork, "203")}</p>
-                            </article>
-                        )
-                    })}
+                    {result.data.map((artwork) => (
+                        <ArtworkCard key={artwork.href} artwork={artwork} />
+                    ))}
                 </div>
 
                 {(result.paging?.prev || result.paging?.next) && (
