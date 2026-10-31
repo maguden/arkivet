@@ -18,14 +18,28 @@ export const Artworks: CollectionConfig = {
         },
         slugField(),
         {
+            name: "munchId",
+            label: "Inventarnummer hos MUNCH",
+            type: "text",
+            index: true,
+        },
+        {
             name: "artist",
             label: "Kunstner",
             type: "text",
         },
         {
             name: "date",
-            label: "datering",
+            label: "datering fra",
             type: "number",
+        },
+        {
+            name: "dateTo",
+            label: "Datering til",
+            type: "number",
+            admin: {
+                description: "Fyll ut hvis verket datert til en pariode i stedet for et spesifikt årstall.",
+            }
         },
         {
             name: "category",

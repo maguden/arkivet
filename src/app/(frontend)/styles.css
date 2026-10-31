@@ -300,9 +300,7 @@ main.homepage {
 }
 
 
-
 /* Søkeresultater */
-
 main.database-page {
   inline-size: 100%;
   margin-top: 40px;
@@ -440,4 +438,44 @@ main.artwork-detail {
   text-decoration: none;
 }
 
+/* ---- ERROR PAGE ---- */
+
+main.database-error {
+  inline-size: min(640px, 100%);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 140px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
+.database-error > * + * {
+  margin-block-start: 24px;
+}
+
+.database-error h1 {
+  font-size: 32px;
+}
+
+.database-error p {
+  line-height: 1.5;
+}
+
+.database-error button {
+  padding: 12px 24px;
+  border: 1px solid black;
+  background: black;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.database-error a {
+  display: block;
+  color: inherit;
+}
 

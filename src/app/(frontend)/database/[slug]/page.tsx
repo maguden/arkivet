@@ -1,80 +1,76 @@
-import { getPayload } from "payload";
+import { getMunchArtwork, getMunchValue } from "@/lib/munch";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import config from "@/payload.config";
 
 type Props = {
     params: Promise<{ slug: string }>;
-};
-
-export default async function ArtworkPage({ params }: Props) {
-    const { slug } = await params;
-    const payload = await getPayload({ config });
-
-    const result = await payload.find({
-        collection: "artworks",
-        where: {
-            slug: {
-                equals: slug,
-            },
-        },
-        depth: 1,
-        limit: 1,
-});
-
-const artwork = result.docs[0];
-
-if (!artwork) {
-    notFound();
 }
 
-const image = artwork.image && typeof artwork.image === "object" ? artwork.image : null;
+export default async function ArtworkPage({ params }: Props) {
+    const { slug: encodedSlug } = await params;
 
-return (
-    <main className="artwork-detail">
-      <div className="artwork-detail-info">
-         <h1>{artwork.title}</h1>
+    let slug: string;
 
-         <div className="artwork-detail-meta">
-             <p>{artwork.artist}</p>
-             <p>Datering: {artwork.date}</p>
-         </div>
+    try {
+        slug = decodeURIComponent(encodedSlug);
+    } catch {
+        notFound();
+    }
 
-         <div className="artwork-detail-credits">
-             {artwork.credit && <p>Foto: {artwork.credit}</p>}
+    const archives = [
+        "5013-Malerier",
+        "5014-Grafikk",
+        "5015-Tegninger",
+        "5016-Fotografi",
+    ];
 
-             {artwork.license && (
-                 <p>
-                   Lisens: {" "}
-                   {artwork.licenseUrl ? (
-                     <a href={artwork.licenseUrl}>{artwork.license}</a>
-                 ) : (
-                     artwork.license
-                 )}
-                 </p>
-             )}
+    const validArchive = archives.some((archive) => 
+        slug.startsWith(`/fotoweb/archives/${archive}/`)
+    );
 
-             {artwork.sourceUrl && (
-                 <p>
-                   <a href={artwork.sourceUrl}>Se verket hos MUNCH →</a>
-                 </p>
-             )}
-         </div>
-      </div>
+    if (!validArchive || !slug.endsWith(".info")) {
+        notFound();
+    }
 
-      <div className="artwork-detail-image">
-          {image?.url && (
-            <img 
-            src={image.url}
-            alt={image.alt || ""}
-            width={image.width ?? undefined}
-            height={image.height ?? undefined}
-            style={{ maxWidth: "100%", height: "auto" }}
-            />
-        )}
-      </div>
-    </main>
+    const artwork = await getMunchArtwork(slug);
+    const preview = artwork.previews[0];
 
-)
+    const imageUrl = preview ? new URL(preview.href,"https://foto.munchmuseet.no").href : null;
 
+    return(
+        <main className="artwork-detail">
+            <div className="artwork-detail-info">
+                <h1>{getMunchValue(artwork, "5")}</h1>
+
+                <div className="artwork-detail-meta">
+                    <p>{getMunchValue(artwork, "110")}</p>
+                    <p>{getMunchValue(artwork, "203")}</p>
+                </div>
+
+                <div className="artwork-detail-credits">
+                    {getMunchValue(artwork, "80") && (
+                    <p>Foto: {getMunchValue(artwork, "80")}</p>
+                    )}
+
+                    {getMunchValue(artwork, "315") && (
+                        <p>Lisens: {getMunchValue(artwork, "315")}</p>
+                    )}
+
+                    {getMunchValue(artwork, "116") && (
+                        <p>{getMunchValue(artwork, "116")}</p>
+                    )}
+                </div>
+            </div>
+
+            <div className="artwork-detail-image">
+                {imageUrl && (
+                    <img
+                    src={imageUrl}
+                    alt={getMunchValue(artwork, "5")}
+                    width={preview?.width}
+                    height={preview?.height}
+                    />
+                )}
+            </div>
+        </main>
+    )
 }

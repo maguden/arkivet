@@ -10,7 +10,7 @@ const categories = [
     { label: "Malerier", value: "malerier" },
     { label: "Grafikk", value: "grafikk" },
     { label: "Tegninger", value: "tegninger" },
-    { label: "Fotografier", value: "fotografier" },
+    { label: "Fotografi", value: "fotografi" },
 ];
 
 export default function CategoryFilter({ initialCategory }: Props) {

@@ -211,8 +211,13 @@ export interface Artwork {
    */
   generateSlug?: boolean | null;
   slug: string;
+  munchId?: string | null;
   artist?: string | null;
   date?: number | null;
+  /**
+   * Fyll ut hvis verket datert til en pariode i stedet for et spesifikt årstall.
+   */
+  dateTo?: number | null;
   category: 'malerier' | 'grafikk' | 'tegninger' | 'fotografi';
   image: number | Media;
   description?: string | null;
@@ -366,8 +371,10 @@ export interface ArtworksSelect<T extends boolean = true> {
   title?: T;
   generateSlug?: T;
   slug?: T;
+  munchId?: T;
   artist?: T;
   date?: T;
+  dateTo?: T;
   category?: T;
   image?: T;
   description?: T;
