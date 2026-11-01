@@ -10,20 +10,37 @@ export default async function Home() {
     depth: 1,
   });
 
-  const image = homepage.image && typeof homepage.image === "object" ? homepage.image : null;
+  const categories = [
+    {
+      title: "Malerier",
+      image: "/images/malerier.jpg",
+      href: "/database?category=malerier",
+    },
+    {
+      title: "Grafikk",
+      image: "/images/grafikk.jpg",
+      href: "/database?category=grafikk",
+    },
+    {
+      title: "Tegninger",
+      image: "/images/tegninger.jpg",
+      href: "/database?category=tegninger",
+    },
+    {
+      title: "Fotografi",
+      image: "/images/fotografi.jpg",
+      href: "/database?category=fotografi",
+    },
+  ];
 
   return (
     <main className="homepage">
      <section className="hero" aria-label="forsidebilde">
-       {image?.url && (
          <img
          className="hero-image"
-         src={image.url}
-         alt={image.alt || ""}
-         width={image.width ?? undefined}
-         height={image.height ?? undefined}
+         src="/images/hero.jpg"
+         alt="Maleri fra MUNCHs samling"
          />
-       )}
      </section>
 
      <section className="homepage-intro">
@@ -32,22 +49,15 @@ export default async function Home() {
      </section>
 
      <section className="category-grid" aria-label="Kunstkategorier">
-      {homepage.categories?.map((category) => {
-        const categoryImage = 
-         category.image && typeof category.image === "object" ? category.image : null;
+      {categories.map((category) => {
 
          return (
           <Link 
-             key={category.id}
+             key={category.href}
              href={category.href}
              className="category-card"
           >
-            {categoryImage?.url && (
-              <img
-                 src={categoryImage.url}
-                 alt={categoryImage.alt || ""}
-              />
-            )}
+              <img src={category.image} alt="" />
 
             <h2>{category.title}</h2>
           </Link>

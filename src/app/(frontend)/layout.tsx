@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 
+
 export const metadata = {
   description: "Utforsk kunstverk og kunstnere fra MUNCH museet.",
   title: "arkivet.",
@@ -46,7 +47,14 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         {children}
 
         <footer>
-          <p>Et studentprosjekt med kunst fra MUNCHs samlinger</p>
+          <p>arkivet. - Et studentprosjekt av Magnus Gude</p>
+
+          <nav aria-label="Bunnmeny">
+            <Link href="/om-arkivet">Om arkivet. ↗</Link>
+            <a href="https://foto.munchmuseet.no/fotoweb/">
+            MUNCHs fotoarkiv ↗
+            </a>
+          </nav>
         </footer>
 
       </body>

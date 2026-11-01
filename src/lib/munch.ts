@@ -135,6 +135,8 @@ export async function getMunchArtworks(
         archiveIndex
     );
 
+    console.log("SIDEINFO", result.paging);
+
     let next = result.paging?.next ?? null;
     let prev = result.paging?.prev ?? null;
 
